@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 
 const createJabatan = async (req, res) => {
     const { namaJabatan, tugas, wewenang } = req.body;
+    if (!namaJabatan || !tugas || !wewenang) return res.status(400).json({ message: "Nama Jabatan, Tugas, dan Wewenang harus diisi" });
 
     const jabatanExist = await Jabatan.findOne({ where: { namaJabatan: req.body.namaJabatan } });
     if (jabatanExist) return res.status(400).json({ message: "Jabatan sudah ada" });
@@ -59,7 +60,10 @@ const updateJabatan = async (req, res) => {
 
         if (jabatan) {
             const jabatanUpdated = await Jabatan.findByPk(req.params.id);
-            res.json(jabatanUpdated);
+            res.json({
+                message: "Berhasil memperbarui jabatan",
+                jabatanUpdated
+            });
         } else {
             res.status(404).json({ message: 'Jabatan tidak ditemukan' });
         }
