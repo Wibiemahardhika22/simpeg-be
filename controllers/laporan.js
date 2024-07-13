@@ -3,19 +3,22 @@ const Pegawai = require('../models/pegawai');
 const { Op } = require('sequelize');
 
 const createLaporan = async (req, res) => {
-    const { pegawaiId, judul, isi } = req.body;
+    const { judul, isiLaporan, jenis } = req.body;
+    if (!judul || !isiLaporan || !jenis) return res.status(400).json({ message: "Judul, Isi Laporan, dan Jenis (Laporan/Saran) harus diisi" });
 
     try {
-        const pegawai = await Pegawai.findById(pegawaiId);
-        if (!pegawai) return res.status(404).json({ message: 'Pegawai tidak ditemukan' });
-
-        const newLaporan = new Laporan({ pegawaiId, judul, isi });
+        const newLaporan = new Laporan({ judul, isiLaporan, jenis });
         const savedLaporan = await newLaporan.save();
 
-        res.status(201).json(savedLaporan);
+        res.status(201).json({
+            message: 'Laporan/saran berhasil dibuat',
+            data: savedLaporan
+        });
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Gagal membuat laporan' });
+        res.status(500).json({
+            message: 'Gagal membuat laporan/saran',
+            error: error.message
+        });
     }
 };
 
@@ -31,7 +34,8 @@ const getAllLaporan = async (req, res) => {
             where: {
                 [Op.or]: [
                     { judul: { [Op.like]: '%' + search + '%' } },
-                    { isiLaporan: { [Op.like]: '%' + search + '%' } }
+                    { isiLaporan: { [Op.like]: '%' + search + '%' } },
+                    { jenis: { [Op.like]: '%' + search + '%' } }
                 ]
             },
             order: [['IDLaporan', 'DESC']],  // Mengurutkan berdasarkan ID secara menurun
@@ -60,7 +64,7 @@ const getAllLaporan = async (req, res) => {
 
 const getLaporanById = async (req, res) => {
     try {
-        const laporan = await Laporan.findById(req.params.id).populate('pegawaiId', 'nama');
+        const laporan = await Laporan.findByPk(req.params.id);
         if (!laporan) return res.status(404).json({ message: 'Laporan tidak ditemukan' });
         res.json(laporan);
     } catch (error) {
@@ -71,23 +75,35 @@ const getLaporanById = async (req, res) => {
 
 const updateLaporan = async (req, res) => {
     try {
-        const laporan = await Laporan.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!laporan) return res.status(404).json({ message: 'Laporan tidak ditemukan' });
-        res.json(laporan);
+        const [laporan] = await Laporan.update(req.body, {
+            where: { IDLaporan: req.params.id }
+        });
+
+        if (laporan) {
+            const laporanUpdated = await Laporan.findByPk(req.params.id);
+            res.json({
+                message: "Berhasil memperbarui laporan/saran",
+                data: laporanUpdated
+            });
+        } else {
+            res.status(404).json({ message: 'Laporan/saran tidak ditemukan' });
+        }
     } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Gagal memperbarui laporan' });
+        res.status(400).json({ message: error.message });
     }
 };
 
 const deleteLaporan = async (req, res) => {
     try {
-        const laporan = await Laporan.findByIdAndDelete(req.params.id);
-        if (!laporan) return res.status(404).json({ message: 'Laporan tidak ditemukan' });
-        res.json({ message: 'Laporan berhasil dihapus' });
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: 'Gagal menghapus laporan' });
+        const laporan = await Laporan.findByPk(req.params.id);
+        if (laporan) {
+            await laporan.destroy();
+            res.json({ message: 'Berhasil menghapus laporan/saran' });
+        } else {
+            res.status(404).json({ message: 'Laporan/saran tidak ditemukan' });
+        }
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
 };
 
