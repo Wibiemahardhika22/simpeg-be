@@ -5,28 +5,25 @@ const addGaji = async (req, res) => {
     const { IDPegawai, bulan, jamKerja, gajiPokok, tunjangan, lembur, uangMakan, uangTransport, keterangan } = req.body;
 
     try {
-        const existingGaji = await Gaji.findOne({ IDPegawai, bulan });
+        const existingGaji = await Gaji.findOne({ where: { IDPegawai, bulan } });
         if (existingGaji) return res.status(400).json({ message: 'Gaji pegawai untuk bulan ini sudah ada.' });
 
-        const newGaji = new Gaji({
+        const newGaji = await Gaji.create({
             IDPegawai,
             bulan,
-            jamKerja,
-            gajiPokok,
-            tunjangan,
-            lembur,
-            uangMakan,
-            uangTransport,
+            jamKerja: parseFloat(jamKerja),
+            gajiPokok: parseFloat(gajiPokok),
+            tunjangan: parseFloat(tunjangan),
+            lembur: parseFloat(lembur),
+            uangMakan: parseFloat(uangMakan),
+            uangTransport: parseFloat(uangTransport),
             keterangan
         });
 
-        const savedGaji = await newGaji.save();
-
-        await Pegawai.findByIdAndUpdate(IDPegawai, {
-            $push: { IDGaji: savedGaji._id }
+        res.json({
+            message: "Gaji berhasil ditambahkan",
+            newGaji
         });
-
-        res.json(savedGaji);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
@@ -34,7 +31,12 @@ const addGaji = async (req, res) => {
 
 const getAllGaji = async (req, res) => {
     try {
-        const allGaji = await Gaji.find().populate('IDPegawai', 'nip nama');
+        const allGaji = await Gaji.findAll({
+            include: {
+                model: Pegawai,
+                attributes: ['nip', 'nama']
+            }
+        });
         res.json(allGaji);
     } catch (err) {
         res.status(400).json({ message: err.message });
@@ -43,7 +45,12 @@ const getAllGaji = async (req, res) => {
 
 const getGajiById = async (req, res) => {
     try {
-        const gaji = await Gaji.findById(req.params.id).populate('IDPegawai', 'nip nama');
+        const gaji = await Gaji.findByPk(req.params.id, {
+            include: {
+                model: Pegawai,
+                attributes: ['nip', 'nama']
+            }
+        });
         if (!gaji) return res.status(404).json({ message: "Gaji tidak ditemukan" });
         res.json(gaji);
     } catch (err) {
@@ -53,23 +60,58 @@ const getGajiById = async (req, res) => {
 
 const updateGaji = async (req, res) => {
     try {
-        const updatedGaji = await Gaji.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedGaji) return res.status(404).json({ message: "Gaji tidak ditemukan" });
+        const gaji = await Gaji.findByPk(req.params.id);
+        if (!gaji) return res.status(404).json({ message: "Gaji tidak ditemukan" });
 
-        updatedGaji.totalGaji = updatedGaji.gajiPokok + updatedGaji.tunjangan + updatedGaji.lembur + updatedGaji.uangMakan + updatedGaji.uangTransport;
-        await updatedGaji.save();
-        
-        res.json(updatedGaji);
+        const {
+            IDPegawai = gaji.IDPegawai,
+            bulan = gaji.bulan,
+            jamKerja = gaji.jamKerja,
+            gajiPokok = gaji.gajiPokok,
+            tunjangan = gaji.tunjangan,
+            lembur = gaji.lembur,
+            uangMakan = gaji.uangMakan,
+            uangTransport = gaji.uangTransport,
+            keterangan = gaji.keterangan
+        } = req.body;
+
+        // Konversi menjadi angka
+        const gajiPokokNum = parseFloat(gajiPokok) || 0;
+        const tunjanganNum = parseFloat(tunjangan) || 0;
+        const lemburNum = parseFloat(lembur) || 0;
+        const uangMakanNum = parseFloat(uangMakan) || 0;
+        const uangTransportNum = parseFloat(uangTransport) || 0;
+
+        const updatedGaji = await gaji.update({
+            IDPegawai,
+            bulan,
+            jamKerja,
+            gajiPokok: gajiPokokNum,
+            tunjangan: tunjanganNum,
+            lembur: lemburNum,
+            uangMakan: uangMakanNum,
+            uangTransport: uangTransportNum,
+            keterangan,
+            totalGaji: gajiPokokNum + tunjanganNum + lemburNum + uangMakanNum + uangTransportNum
+        });
+
+        res.json({
+            message: "Berhasil memperbarui gaji",
+            data: updatedGaji
+        });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 };
 
+
 const deleteGaji = async (req, res) => {
     try {
-        const gaji = await Gaji.findByIdAndDelete(req.params.id);
+        const gaji = await Gaji.findByPk(req.params.id);
         if (!gaji) return res.status(404).json({ message: "Gaji tidak ditemukan" });
-        res.json({ message: 'Gaji deleted successfully' });
+
+        await gaji.destroy();
+        res.json({ message: 'Berhasil menghapus gaji' });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
