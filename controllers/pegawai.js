@@ -46,7 +46,7 @@ const loginPegawai = async (req, res) => {
         const validPassword = await bcrypt.compare(password, pegawai.password);
         if (!validPassword) return res.status(400).json({ message: "NIP atau Password salah" });
 
-        const token = jwt.sign({ id: pegawai._id, nama: pegawai.nama, role: "Pegawai" }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ id: pegawai.IDPegawai, nama: pegawai.nama, role: "Pegawai" }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         res.json({
             message: "Login berhasil",

@@ -38,7 +38,7 @@ const loginAdmin = async (req, res) => {
         const validPassword = await bcrypt.compare(password, admin.password);
         if (!validPassword) return res.status(400).json({ message: "Username atau Password salah" });
 
-        const token = jwt.sign({ id: admin._id, nama: admin.nama, role: "Admin" }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ id: admin.IDAdmin, nama: admin.nama, role: "Admin" }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         res.json({
             message: "Login berhasil",
