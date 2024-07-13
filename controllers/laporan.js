@@ -1,5 +1,6 @@
 const Laporan = require('../models/laporan');
 const Pegawai = require('../models/pegawai');
+const { Op } = require('sequelize');
 
 const createLaporan = async (req, res) => {
     const { pegawaiId, judul, isi } = req.body;
@@ -20,11 +21,40 @@ const createLaporan = async (req, res) => {
 
 const getAllLaporan = async (req, res) => {
     try {
-        const laporans = await Laporan.find().populate('pegawaiId', 'nama');
-        res.json(laporans);
+        const page = parseInt(req.query.page) || 0;  // Halaman saat ini
+        const limit = parseInt(req.query.limit) || 10;  // Jumlah data per halaman
+        const search = req.query.search || '';  // Kata kunci pencarian
+        const offset = page * limit;
+
+        // Menentukan kriteria pencarian
+        const searchFilter = {
+            where: {
+                [Op.or]: [
+                    { judul: { [Op.like]: '%' + search + '%' } },
+                    { isiLaporan: { [Op.like]: '%' + search + '%' } }
+                ]
+            },
+            order: [['IDLaporan', 'DESC']],  // Mengurutkan berdasarkan ID secara menurun
+            offset,  // Mengatur offset untuk pagination
+            limit  // Membatasi jumlah data per halaman
+        };
+
+        // Menghitung total baris data yang cocok dengan kriteria pencarian
+        const { count: totalRows, rows: laporan } = await Laporan.findAndCountAll(searchFilter);
+
+        // Menghitung total halaman
+        const totalPages = Math.ceil(totalRows / limit);
+
+        res.json({
+            page,
+            limit,
+            totalRows,
+            totalPages,
+            data: laporan
+        });
     } catch (error) {
         console.error(error.message);
-        res.status(500).json({ message: 'Gagal mengambil laporan' });
+        res.status(500).json({ message: "Internal Server Error" });
     }
 };
 

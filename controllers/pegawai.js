@@ -1,5 +1,6 @@
 const Pegawai = require('../models/pegawai');
 const Jabatan = require('../models/jabatan');
+const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -58,16 +59,47 @@ const loginPegawai = async (req, res) => {
 
 const getAllPegawai = async (req, res) => {
     try {
-        const pegawai = await Pegawai.findAll({
-            include: {
-                model: Jabatan,
-                attributes: ['namaJabatan'] // hanya ambil namaJabatan dari model Jabatan
+        const page = parseInt(req.query.page) || 0;  // Halaman saat ini
+        const limit = parseInt(req.query.limit) || 10;  // Jumlah data per halaman
+        const search = req.query.search || '';  // Kata kunci pencarian
+        const offset = page * limit;
+
+        // Menentukan kriteria pencarian
+        const searchFilter = {
+            where: {
+                [Op.or]: [
+                    { nama: { [Op.like]: '%' + search + '%' } },
+                    { nip: { [Op.like]: '%' + search + '%' } }
+                ]
             },
-            attributes: { exclude: ['password'] }
+            include: [
+                {
+                    model: Jabatan,
+                    attributes: ['namaJabatan']  // hanya ambil atribut yang diperlukan dari Jabatan
+                }
+            ],
+            attributes: { exclude: ['password'] },  // Menghilangkan password dari response
+            order: [['IDPegawai', 'DESC']],  // Mengurutkan berdasarkan ID secara menurun
+            offset,  // Mengatur offset untuk pagination
+            limit  // Membatasi jumlah data per halaman
+        };
+
+        // Menghitung total baris data yang cocok dengan kriteria pencarian
+        const { count: totalRows, rows: pegawai } = await Pegawai.findAndCountAll(searchFilter);
+
+        // Menghitung total halaman
+        const totalPages = Math.ceil(totalRows / limit);
+
+        res.json({
+            page,
+            limit,
+            totalRows,
+            totalPages,
+            data: pegawai
         });
-        res.json(pegawai);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 };
 
