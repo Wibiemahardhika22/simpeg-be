@@ -10,10 +10,7 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         dialect: process.env.DB_DIALECT,
-        timezone: '+07:00', // Set timezone to WIB (Waktu Indonesia Barat)
-        dialectOptions: {
-            useUTC: false, // Disable UTC mode
-        },
+        timezone: '+07:00', // Set timezone ke WIB (Waktu Indonesia Barat)
     });
 
 // Uji koneksi
