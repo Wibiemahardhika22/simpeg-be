@@ -1,4 +1,4 @@
-# Sistem Informasi Kepegawaian Dengan Menggunakan Express JS dan MySQL
+# Sistem Informasi Kepegawaian dengan Menggunakan Express JS dan MySQL
 
 ## Author
 
@@ -78,3 +78,24 @@ nodemon index.js
 
 ### 6. Verifikasi
 Buka browser/postman dan akses http://localhost:3000 untuk memastikan server berjalan dengan baik.
+
+## Import JSON Testing dengan Postman
+
+Setelah menyelesaikan instalasi dan konfigurasi proyek, Anda dapat menggunakan Postman untuk menguji API yang telah dibuat. File koleksi Postman yang digunakan untuk pengujian dapat ditemukan dalam repository GitHub dengan nama UAS DPSI 2100016081 postman_collection.json.
+
+### Langkah-langkah Mengimpor Koleksi Postman:
+
+### 1. Buka Postman
+Pastikan Anda sudah mengunduh dan menginstal Postman di komputer Anda.
+
+### 2. Import Koleksi
+- Klik tombol Import di sudut kiri atas aplikasi Postman atau dengan menggunakan `CTRL+O`.
+- Drag and drop file yang akan diimport atau Klik `Select Files` dan navigasikan ke file `UAS DPSI 2100016081 postman_collection.json` yang ada di dalam repository yang telah di-clone.
+
+### 3. Konfirmasi Import
+- Setelah file dipilih, klik Open untuk memulai proses impor.
+- Postman akan menampilkan daftar koleksi dan lingkungan yang akan diimpor. Klik Import untuk mengonfirmasi.
+
+### 4. Menggunakan Koleksi
+- Setelah koleksi diimpor, Anda akan melihat daftar endpoint yang tersedia dalam koleksi tersebut.
+- Anda bisa memilih dan menjalankan setiap request untuk menguji API. Pastikan server lokal Anda berjalan di alamat yang sesuai dengan konfigurasi environment di Postman.
