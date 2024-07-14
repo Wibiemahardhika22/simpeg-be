@@ -40,6 +40,9 @@ const Pegawai = sequelize.define('Pegawai', {
     },
     alamat: {
         type: DataTypes.STRING
+    },
+    profilePicture: {
+        type: DataTypes.STRING
     }
 }, {
     timestamps: true,

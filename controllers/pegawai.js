@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
+const upload = require('../middleware/upload');
 
 const registerPegawai = async (req, res) => {
     const { nip, nama, password, jenisKelamin, IDJabatan, tempatLahir, tanggalLahir, alamat } = req.body;
@@ -121,37 +122,44 @@ const getPegawaiById = async (req, res) => {
 };
 
 const updatePegawai = async (req, res) => {
-    const { nip, nama, password, jenisKelamin, IDJabatan, tempatLahir, tanggalLahir, alamat } = req.body;
-
-    try {
-        const updateFields = { nip, nama, jenisKelamin, IDJabatan, tempatLahir, tanggalLahir, alamat };
-
-        if (password) {
-            // Hanya hash password jika ada password yang baru
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(password, salt);
-            updateFields.password = hashedPassword;
-        }
-        const [updated] = await Pegawai.update(updateFields, {
-            where: { IDPegawai: req.params.id }
-        });
-
-        // Periksa apakah pegawai ditemukan dan diperbarui
-        if (updated) {
-            const pegawaiUpdated = await Pegawai.findByPk(req.params.id, {
-                attributes: { exclude: ['password'] } // hilangkan field password dari hasil query
-            });
-            res.status(200).json({
-                message: "Update berhasil",
-                data: pegawaiUpdated
-            });
+    upload(req, res, async (err) => {
+        if (err) {
+            return res.status(400).json({ message: err });
         } else {
-            res.status(404).json({ message: "Pegawai tidak ditemukan" });
+            const { nip, nama, password, jenisKelamin, IDJabatan, tempatLahir, tanggalLahir, alamat } = req.body;
+            const profilePicture = req.file ? req.file.path : null;
+
+            try {
+                const updateFields = { nip, nama, jenisKelamin, IDJabatan, tempatLahir, tanggalLahir, alamat };
+                if (profilePicture) updateFields.profilePicture = profilePicture;
+
+                if (password) {
+                    const salt = await bcrypt.genSalt(10);
+                    const hashedPassword = await bcrypt.hash(password, salt);
+                    updateFields.password = hashedPassword;
+                }
+
+                const [updated] = await Pegawai.update(updateFields, {
+                    where: { IDPegawai: req.params.id }
+                });
+
+                if (updated) {
+                    const pegawaiUpdated = await Pegawai.findByPk(req.params.id, {
+                        attributes: { exclude: ['password'] } // hilangkan field password dari hasil query
+                    });
+                    res.status(200).json({
+                        message: "Update berhasil",
+                        data: pegawaiUpdated
+                    });
+                } else {
+                    res.status(404).json({ message: "Pegawai tidak ditemukan" });
+                }
+            } catch (error) {
+                console.error(error.message);
+                res.status(500).json({ message: "Update gagal" });
+            }
         }
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ message: "Update gagal" });
-    }
+    });
 };
 
 const deletePegawai = async (req, res) => {
