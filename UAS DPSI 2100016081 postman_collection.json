@@ -1,0 +1,993 @@
+{
+	"info": {
+		"_postman_id": "38dfc04c-d290-420c-b1c2-8071ffddb66d",
+		"name": "DPSI Sistem Informasi Kepegawaian",
+		"description": "API ini dikembangkan menggunakan _Express.js_ sebagai backend dan _MongoDB_ sebagai database untuk menyimpan data. API ini berfungsi untuk mengelola data kepegawaian, termasuk informasi pegawai dan gaji mereka.\n\n**Dibuat oleh:**\n\nWibie Mahardhika Adi\n\n2100016081",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28432327"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"nama\": \"Admin Sekolah\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"admin",
+								"register"
+							]
+						},
+						"description": "Mendaftar/Menambahkan admin baru"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						},
+						"description": "Login untuk admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"admin"
+							]
+						},
+						"description": "Mengambil daftar semua admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin/666016f09f270e7fb46e1933",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"admin",
+								"666016f09f270e7fb46e1933"
+							]
+						},
+						"description": "Mengambil data admin berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"admin",
+								"1"
+							]
+						},
+						"description": "Memperbarui data admin berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/admin/666016f09f270e7fb46e19332",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"admin",
+								"666016f09f270e7fb46e19332"
+							]
+						},
+						"description": "Menghapus admin berdasarkan ID"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Pegawai",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nip\": \"123\",\r\n    \"nama\": \"Wibie Mahardhika\",\r\n    \"password\": \"123\",\r\n    \"jenisKelamin\": \"L\",\r\n    \"IDJabatan\": \"1\",\r\n    \"tempatLahir\": \"Yogyakarta\",\r\n    \"tanggalLahir\": \"2003-12-12\",\r\n    \"alamat\": \"Daerah Istimewa Yogyakarta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/pegawai/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"pegawai",
+								"register"
+							]
+						},
+						"description": "Mendaftar/Menambahkan pegawai baru"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nip\": \"123\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/pegawai/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"pegawai",
+								"login"
+							]
+						},
+						"description": "Login untuk pegawai"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pegawai",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/pegawai?search=&page=0&limit=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"pegawai"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						},
+						"description": "Mengambil daftar semua pegawai"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pegawai by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/pegawai/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"pegawai",
+								"3"
+							]
+						},
+						"description": "Mengambil data pegawai berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pegawai",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nip",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "nama",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "321123",
+									"type": "text"
+								},
+								{
+									"key": "jenisKelamin",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tempatLahir",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "tanggalLahir",
+									"value": "2000-08-17",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "alamat",
+									"value": "Yogyakarta",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "profilePicture",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/pegawai/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"pegawai",
+								"3"
+							]
+						},
+						"description": "Memperbarui data pegawai berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pegawai",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/pegawai/666023871d78f9f872039785",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"pegawai",
+								"666023871d78f9f872039785"
+							]
+						},
+						"description": "Menghapus pegawai berdasarkan ID"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Jabatan",
+			"item": [
+				{
+					"name": "Create Jabatan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"namaJabatan\": \"Kepala Sekolah\",\r\n  \"tugas\": \"Memimpin dan mengelola seluruh kegiatan sekolah, serta menjamin pelaksanaan pendidikan yang efektif dan efisien.\",\r\n  \"wewenang\": \"Mengambil keputusan strategis untuk sekolah, menyusun program kerja sekolah, dan mewakili sekolah dalam berbagai acara.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/jabatan/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"jabatan",
+								""
+							]
+						},
+						"description": "Menambahkan data jabatan"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Jabatan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"judul\": \"Laporan Masalah Teknis\",\r\n    \"isiLaporan\": \"Hari ini kami mengalami masalah dengan sistem kami.\",\r\n    \"jenis\": \"Laporan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/jabatan?search=kepala",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"jabatan"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "kepala"
+								}
+							]
+						},
+						"description": "Mengambil daftar semua jabatan"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Jabatan by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"judul\": \"Laporan Masalah Teknis\",\r\n    \"isiLaporan\": \"Hari ini kami mengalami masalah dengan sistem kami.\",\r\n    \"jenis\": \"Laporan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/jabatan/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"jabatan",
+								"1"
+							]
+						},
+						"description": "Mengambil data jabatan berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Jabatan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"namaJabatan\": \"Pengawas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/jabatan/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"jabatan",
+								"3"
+							]
+						},
+						"description": "Memperbarui data jabatan berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Jabatan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/jabatan/3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"jabatan",
+								"3"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Menghapus data jabatan berdasarkan ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gaji",
+			"item": [
+				{
+					"name": "Create Gaji",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IDPegawai\": \"2\",\r\n    \"bulan\": \"Agustus\",\r\n    \"jamKerja\": \"12\",\r\n    \"gajiPokok\": \"1000000\",\r\n    \"tunjangan\": \"500000\",\r\n    \"lembur\": \"0\",\r\n    \"uangMakan\": \"0\",\r\n    \"uangTransport\": \"100000\",\r\n    \"keterangan\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/gaji",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"gaji"
+							]
+						},
+						"description": "Menambahkan data gaji"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Gaji",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/gaji",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"gaji"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Gaji by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"judul\": \"Laporan Masalah Teknis\",\r\n    \"isiLaporan\": \"Hari ini kami mengalami masalah dengan sistem kami.\",\r\n    \"jenis\": \"Laporan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/gaji/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"gaji",
+								"1"
+							]
+						},
+						"description": "Mengambil data gaji berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Gaji",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tunjangan\": \"0\",\r\n    \"uangMakan\": \"50000\",\r\n    \"lembur\": \"50000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/gaji/1",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"gaji",
+								"1"
+							]
+						},
+						"description": "Memperbarui data gaji berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Gaji",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/gaji/7",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"gaji",
+								"7"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Menghapus data gaji berdasarkan ID"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Laporan",
+			"item": [
+				{
+					"name": "Create Laporan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"judul\": \"Laporan Masalah Teknis\",\r\n    \"isiLaporan\": \"Hari ini kami mengalami masalah dengan sistem kami.\",\r\n    \"jenis\": \"Laporan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/laporan/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"laporan",
+								""
+							]
+						},
+						"description": "Menambahkan data laporan"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Laporan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"judul\": \"Laporan Masalah Teknis\",\r\n    \"isiLaporan\": \"Hari ini kami mengalami masalah dengan sistem kami.\",\r\n    \"jenis\": \"Laporan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/laporan?page=0&limit=5&search=saran",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"laporan"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "search",
+									"value": "saran"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Laporan by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"judul\": \"Laporan Masalah Teknis\",\r\n    \"isiLaporan\": \"Hari ini kami mengalami masalah dengan sistem kami.\",\r\n    \"jenis\": \"Laporan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/laporan/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"laporan",
+								""
+							]
+						},
+						"description": "Mengambil data laporan berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Laporan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jenis\": \"saran\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/laporan/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"laporan",
+								"5"
+							]
+						},
+						"description": "Memperbarui data laporan berdasarkan ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Laporan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/laporan/5",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"laporan",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Menghapus data laporan berdasarkan ID"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://api-uasdpsi-2100016081.mhrd.my.id"
+		}
+	]
+}
