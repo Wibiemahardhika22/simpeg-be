@@ -1,7 +1,7 @@
 const Pegawai = require('../models/pegawai');
 const Jabatan = require('../models/jabatan');
 const { Op } = require('sequelize');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
