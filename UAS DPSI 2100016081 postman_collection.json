@@ -114,13 +114,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/admin/2",
+							"raw": "{{baseURL}}/admin/1",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"admin",
-								"2"
+								"1"
 							]
 						},
 						"description": "Mengambil data admin berdasarkan ID"
@@ -170,13 +170,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/admin/666016f09f270e7fb46e19332",
+							"raw": "{{baseURL}}/admin/2",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"admin",
-								"666016f09f270e7fb46e19332"
+								"2"
 							]
 						},
 						"description": "Menghapus admin berdasarkan ID"
@@ -217,7 +217,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nip\": \"123\",\r\n    \"nama\": \"Wibie Mahardhika\",\r\n    \"password\": \"123\",\r\n    \"jenisKelamin\": \"L\",\r\n    \"IDJabatan\": \"1\",\r\n    \"tempatLahir\": \"Yogyakarta\",\r\n    \"tanggalLahir\": \"2003-12-12\",\r\n    \"alamat\": \"Daerah Istimewa Yogyakarta\"\r\n}",
+							"raw": "{\r\n    \"nip\": \"123123\",\r\n    \"nama\": \"Wibie Mahardhika\",\r\n    \"password\": \"123\",\r\n    \"jenisKelamin\": \"L\",\r\n    \"IDJabatan\": \"1\",\r\n    \"tempatLahir\": \"Yogyakarta\",\r\n    \"tanggalLahir\": \"2003-12-12\",\r\n    \"alamat\": \"Daerah Istimewa Yogyakarta\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -294,7 +294,7 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "wi",
+									"value": "wibie",
 									"disabled": true
 								},
 								{
@@ -329,13 +329,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/pegawai/3",
+							"raw": "{{baseURL}}/pegawai/2",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"pegawai",
-								"3"
+								"2"
 							]
 						},
 						"description": "Mengambil data pegawai berdasarkan ID"
@@ -364,7 +364,7 @@
 								},
 								{
 									"key": "password",
-									"value": "321123",
+									"value": "123",
 									"type": "text",
 									"disabled": true
 								},
@@ -395,19 +395,18 @@
 								{
 									"key": "profilePicture",
 									"type": "file",
-									"src": [],
-									"disabled": true
+									"src": "postman-cloud:///1ef428d5-90f6-4da0-86b6-a0fa1644cbf5"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{baseURL}}/pegawai/3",
+							"raw": "{{baseURL}}/pegawai/2",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"pegawai",
-								"3"
+								"2"
 							]
 						},
 						"description": "Memperbarui data pegawai berdasarkan ID"
@@ -429,13 +428,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/pegawai/666023871d78f9f872039785",
+							"raw": "{{baseURL}}/pegawai/4",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"pegawai",
-								"666023871d78f9f872039785"
+								"4"
 							]
 						},
 						"description": "Menghapus pegawai berdasarkan ID"
@@ -579,13 +578,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/jabatan/3",
+							"raw": "{{baseURL}}/jabatan/1",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"jabatan",
-								"3"
+								"1"
 							]
 						},
 						"description": "Memperbarui data jabatan berdasarkan ID"
@@ -607,13 +606,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/jabatan/3",
+							"raw": "{{baseURL}}/jabatan/2",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"jabatan",
-								"3"
+								"2"
 							],
 							"query": [
 								{
@@ -639,7 +638,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"IDPegawai\": \"2\",\r\n    \"bulan\": \"Agustus\",\r\n    \"jamKerja\": \"12\",\r\n    \"gajiPokok\": \"1000000\",\r\n    \"tunjangan\": \"500000\",\r\n    \"lembur\": \"0\",\r\n    \"uangMakan\": \"0\",\r\n    \"uangTransport\": \"100000\",\r\n    \"keterangan\": \"\"\r\n}",
+							"raw": "{\r\n    \"IDPegawai\": \"6\",\r\n    \"bulan\": \"Agustus\",\r\n    \"jamKerja\": \"12\",\r\n    \"gajiPokok\": \"1000000\",\r\n    \"tunjangan\": \"500000\",\r\n    \"lembur\": \"0\",\r\n    \"uangMakan\": \"0\",\r\n    \"uangTransport\": \"100000\",\r\n    \"keterangan\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -762,13 +761,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/gaji/7",
+							"raw": "{{baseURL}}/gaji/2",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"gaji",
-								"7"
+								"2"
 							],
 							"query": [
 								{
@@ -904,13 +903,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/laporan/5",
+							"raw": "{{baseURL}}/laporan/1",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"laporan",
-								"5"
+								"1"
 							]
 						},
 						"description": "Memperbarui data laporan berdasarkan ID"
@@ -960,7 +959,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtYSI6IkFkbWluIFNla29sYWgiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3MjE2MzY2MTAsImV4cCI6MTcyMTY0MDIxMH0.-x73KeVSV48nsI6qYlQiynTjlD8iuCJiQYElCDXeCLg",
 				"type": "string"
 			}
 		]
@@ -990,7 +989,7 @@
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "https://api-uasdpsi-2100016081.mhrd.my.id"
+			"value": "https://2100016081-dpsi-be.vercel.app"
 		}
 	]
 }
