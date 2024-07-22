@@ -63,6 +63,9 @@ DB_USER=root
 DB_PASSWORD=
 DB_NAME=simpeg
 JWT_SECRET=kuncirahasia
+CLOUDINARY_CLOUD_NAME=hjbasdy3ls
+CLOUDINARY_API_KEY=839201756129236
+CLOUDINARY_API_SECRET=RKG6gB92_N9HjPIBdsD2hTUNgGt
 ```
 
 ### 5. Menjalankan Server
@@ -81,7 +84,7 @@ Buka browser/postman dan akses http://localhost:3000 untuk memastikan server ber
 
 ## Import JSON Testing dengan Postman
 
-Setelah menyelesaikan instalasi dan konfigurasi proyek, Anda dapat menggunakan Postman untuk menguji API yang telah dibuat. File koleksi Postman yang digunakan untuk pengujian dapat ditemukan dalam repository GitHub dengan nama UAS DPSI 2100016081 postman_collection.json.
+Setelah menyelesaikan instalasi dan konfigurasi proyek, Anda dapat menggunakan Postman untuk menguji API yang telah dibuat. File koleksi Postman yang digunakan untuk pengujian dapat ditemukan dalam repository GitHub dengan nama `UAS DPSI 2100016081 postman_collection.json`.
 
 ### Langkah-langkah Mengimpor Koleksi Postman:
 
