@@ -1,23 +1,22 @@
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+// Konfigurasi Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Konfigurasi penyimpanan
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        // Ambil IDPegawai dari parameter route
-        const idPegawai = req.params.id;
-        const uploadPath = path.join('./uploads', idPegawai);
-
-        // Buat folder jika belum ada
-        if (!fs.existsSync(uploadPath)) {
-            fs.mkdirSync(uploadPath, { recursive: true });
-        }
-
-        cb(null, uploadPath);
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'uploads',
+        public_id: (req, file) => `${req.params.id}/${Date.now()}-${file.originalname}`,
+        resource_type: 'auto',
     }
 });
 
